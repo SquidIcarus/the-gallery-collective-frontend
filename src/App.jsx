@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Artists from './pages/Artists';
+import Artworks from './pages/Artworks';
+import Events from './pages/Events';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/artists" element={<Artists />} />
+          <Route path="/artworks" element={<Artworks />} />
+          <Route path="/events" element={<Events />} />
         </Routes>
       </Router>
     </AuthProvider>
