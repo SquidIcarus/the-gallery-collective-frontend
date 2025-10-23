@@ -8,6 +8,8 @@ import Register from './pages/Register';
 import Artists from './pages/Artists';
 import Artworks from './pages/Artworks';
 import Events from './pages/Events';
+import UploadArtwork from './pages/UploadArtwork';
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route path="/artists" element={<Artists />} />
           <Route path="/artworks" element={<Artworks />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/upload-artwork" element={<UploadArtwork />} />
         </Routes>
       </Router>
     </AuthProvider>

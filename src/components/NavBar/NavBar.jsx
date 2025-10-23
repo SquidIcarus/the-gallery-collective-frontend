@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/UserContext';
 
 function NavBar() {
-    const { isAuthenticated, logout } = useContext(AuthContext);
+    const { isAuthenticated, logout, user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -37,12 +37,19 @@ function NavBar() {
                     </li>
                 </>
             ) : (
-                <li>
-                  <button onClick={handleLogout}>Logout</button>
-                </li>
+                <>  
+                    {user?.is_artist && (
+                        <li>
+                            <Link to='/upload-artwork'>Upload Artwork</Link>
+                        </li>
+                    )}
+                    <li>
+                        <button onClick={handleLogout}>Logout</button>
+                    </li>
+                </>
             )}
-            </ul>
-        </nav>
+        </ul>
+    </nav>
     );
 }
 

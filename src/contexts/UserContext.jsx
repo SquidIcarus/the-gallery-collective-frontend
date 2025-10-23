@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const checkAuth = () => {
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await authService.login(credentials);
             setIsAuthenticated(true);
+            setUser(data);
             return data;
         } catch (error) {
             throw error;
@@ -29,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         authService.logout();
         setIsAuthenticated(false);
+        setUser(null);
     };
 
     const register = async (userData) => {
@@ -44,10 +47,11 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider 
         value={{ 
             isAuthenticated, 
-            isLoading, 
+            isLoading,
+            user, 
             login, 
             logout, 
-            register }}>
+            register, }}>
         {children}
         </AuthContext.Provider>
     );
