@@ -12,6 +12,12 @@ export const AuthProvider = ({ children }) => {
         const checkAuth = () => {
             const authenticated = authService.isAuthenticated();
             setIsAuthenticated(authenticated);
+
+            if (authenticated) {
+                setUser({
+                    is_artist: authService.getIsArtist(),
+                });
+            }
             setIsLoading(false);
         };
         checkAuth();

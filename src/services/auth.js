@@ -10,12 +10,14 @@ const authService = {
         const response = await api.post('/auth/login/', credentials);
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('is_artist', response.data.is_artist);
         }
         return response.data;
     },
 
     logout: () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('is_artist');
     },
 
     isAuthenticated: () => {
@@ -24,6 +26,10 @@ const authService = {
 
     getToken: () => {
         return localStorage.getItem('token');
+    },
+
+    getIsArtist: () => {
+        return localStorage.getItem('is_artist') === 'true';
     },
 };
 

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/UserContext';
 import artworksService from '../services/artworks';
@@ -19,10 +19,11 @@ function UploadArtwork() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+useEffect(() => {
     if (!isAuthenticated) {
         navigate('/login');
-        return null;
     }
+}, [isAuthenticated, navigate]);
 
     const handleChange = (e) => {
         setFormData({
