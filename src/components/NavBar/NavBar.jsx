@@ -39,9 +39,14 @@ function NavBar() {
             ) : (
                 <>  
                     {user?.is_artist && (
-                        <li>
+                      <>
+                       <li>
                             <Link to='/upload-artwork'>Upload Artwork</Link>
                         </li>
+                        <li>
+                            <Link to='upload-event'>Post Event</Link>
+                        </li>
+                      </>
                     )}
                     <li>
                         <button onClick={handleLogout}>Logout</button>
