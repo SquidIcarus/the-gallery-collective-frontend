@@ -74,7 +74,7 @@ function Events() {
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             {events.map((event) => (
-                <div key={event.id} className='card'>
+                <div key={event.id} className='card group'>
                     {event.artist?.user?.username && (
                         <div className='px-6 pt-4 pb-2'>
                             <p className='text-sm text-gray-500'>
@@ -87,7 +87,7 @@ function Events() {
                         <img
                             src={`${API_BASE}${event.image}`}
                             alt={event.title}
-                            className='w-full h-full object-cover'
+                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                         />
                     </div>
                                             
