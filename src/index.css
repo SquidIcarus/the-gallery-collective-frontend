@@ -31,5 +31,5 @@ input, textarea, select {
   .card {
     @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden;
   }
-  
+
 }
