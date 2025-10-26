@@ -68,8 +68,8 @@ function Artworks() {
                         <h3 className='text-lg font-bold text-neutral-900 mb-1'>
                             {artwork.title}
                         </h3>
-                         <h4 className="text-lg font-regular text-gray-900 mb-1">
-                            {artwork.artist}
+                        <h4 className="text-sm text-gray-600 mb-1">
+                           {artwork.artist?.user?.username ? `by ${artwork.artist.user.username}` : `Artist ID: ${artwork.artist}`}
                         </h4>
                         <p className='text-sm text-neutral-600 mb-2'>
                             {artwork.year_created}
