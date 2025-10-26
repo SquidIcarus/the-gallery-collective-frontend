@@ -74,7 +74,7 @@ useEffect(() => {
 
     return (
         <div className="min-h-screen bg-neutral-50 py-8">
-            <div className="container-custom max-w-2xl">
+            <div className="container-custom max-w-2xl mx-auto px-4">
                 <h1 className="text-4xl font-bold text-neutral-900 mb-8">Upload Artwork</h1>
 
                 <div className="bg-white rounded-lg shadow-md p-8">
@@ -178,6 +178,7 @@ useEffect(() => {
                         name='image'
                         onChange={handleImageChange}
                         accept='image/*'
+                        style={{ fontFamily: 'inherit' }}
                         className='block w-full text-sm text-gray-500
                             file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold
                             file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
