@@ -39,50 +39,70 @@ function Login() {
         }
     };
     return (
-        <>
-        <div>
-            <h1>Login</h1>
+        <div className='min-h-screen bg-neutral-50 flex items-center justify-center py-12 px-4'>
+            <div className='max-w-md w-full'>
+                <div className='text-center mb-8'>
+                    <h1 className='text-4xl font-bold text-neutral-900 mb-2'>Login</h1>
+                    <p className='text-neutral-600'>Welcome back to the Gallery Collective</p>
+                </div>
 
-            <form onSubmit={handleSubmit}>
-                {error && <p>{error}</p>}
+            <div className='bg-white shadow-md rounded-lg p-8'>
+            <form onSubmit={handleSubmit} className='space-y-6'> 
+                {error && (
+                    <div className='bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg'>
+                        {error}
+                    </div>
+                )}
 
                 <div>
-                    <label htmlFor="email">Email:</label>
+                    <label htmlFor="email" className='form-label'>
+                        Email
+                    </label>
                     <input
                         type="email"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        className='form-input'
                         required
                     />
                 </div>
                 
                 <div>
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password" className='form-label'>
+                        Password
+                    </label>
                     <input
                         type="password"
                         id="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
+                        className='form-label'
                         required
                     />
                 </div>
 
-                <button type="submit" disabled={isLoading}>
+                <button 
+                    type="submit" 
+                    disabled={isLoading}
+                    className='w-full btn-primary'
+                >
                     {isLoading ? 'Logging in...' : 'Login'}
                 </button>
             </form>
             
-            <p>
-                Wanna be a collector? <Link to="/register">Register here</Link>
+            <p className='mt-6 text-center text-neutral-600'>
+                Wanna be a collector? {' '}
+                <Link to="/register" className='text-primary-500 hover:text-primary-600 font-semibold'>
+                    Register here
+                </Link>
             </p>    
-
+            </div>
         </div>
-        </>
-
-    )
+      </div>
+    );
 }
 
 export default Login;
