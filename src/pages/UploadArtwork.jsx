@@ -73,33 +73,49 @@ useEffect(() => {
     };
 
     return (
-        <div>
-            <h1>Upload Artwork</h1>
+        <div className="min-h-screen bg-neutral-50 py-8">
+            <div className="container-custom max-w-2xl">
+                <h1 className="text-4xl font-bold text-neutral-900 mb-8">Upload Artwork</h1>
 
-            <form onSubmit={handleSubmit}>
-                {error && <p>{error}</p>}
-                {success && <p>{success}</p>}
-
+                <div className="bg-white rounded-lg shadow-md p-8">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        {error && (
+                            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                                {error}
+                            </div>
+                    )}
+                    {success && (
+                        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+                            {success}
+                        </div>
+                    )}
+                
                 <div>
-                    <label htmlFor="title">Title: </label>
+                    <label htmlFor="title" className='form-label'>
+                        Title
+                    </label>
                     <input
                         type='text'
                         id='title'
                         name='title'
                         value={formData.title}
                         onChange={handleChange}
+                        className='form-input'
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor='year_created'>Year Created: </label>
+                    <label htmlFor='year_created' className='form-label'>
+                        Year Created 
+                    </label>
                     <input
                     type='number'
                     id='year_created'
                     name='year_created'
                     value={formData.year_created}
                     onChange={handleChange}
+                    className='form-input'
                     min='1900'
                     max='2100'
                     required
@@ -107,59 +123,75 @@ useEffect(() => {
                 </div>
 
                 <div>
-                    <label htmlFor='medium'>Medium: </label>
+                    <label htmlFor='medium' className='form-label'>
+                        Medium
+                    </label>
                     <input
                         type='text'
                         id='medium'
                         name='medium'
                         value={formData.medium}
                         onChange={handleChange}
+                        className='form-input'
                         placeholder='e.g., Oil on canvas, Digital, Acrylic'
                         required
                     />
                 </div>
 
                 <div>
-                    <label htmlFor='dimensions'>Dimensions:</label>
+                    <label htmlFor='dimensions' className='form-label'>
+                        Dimensions
+                    </label>
                     <input
                         type='text'
                         id='dimensions'
                         name='dimensions'
                         value={formData.dimensions}
                         onChange={handleChange}
+                        className='form-input'
                         placeholder='e.g., 24 x 36 inches'
                     />
                 </div>
 
                 <div>
-                    <label htmlFor='description'>Description:</label>
+                    <label htmlFor='description' className='form-label'>
+                        Description
+                    </label>
                     <textarea
                         id='description'
                         name='description'
                         value={formData.description}
                         onChange={handleChange}
+                        className='form-input'
                         rows='4'
                         placeholder='Tell us about this piece...'
                     />
                 </div>
 
                  <div>
-                    <label htmlFor='image'>Image: *</label>
+                    <label htmlFor='image' className='form-label'>
+                        Image
+                    </label>
                     <input
                         type='file'
                         id='image'
                         name='image'
                         onChange={handleImageChange}
                         accept='image/*'
+                        className='block w-full text-sm text-gray-500
+                            file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold
+                            file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
                         required
                     />
                 </div>
 
-                <button type='submit' disabled={isLoading}>
+                <button type='submit' disabled={isLoading} className='w-full btn-primary'>
                     {isLoading ? 'Uploading...' : 'Upload Artwork'}
                 </button>
             </form>
         </div>
+        </div>
+    </div>
     );
 }
 
