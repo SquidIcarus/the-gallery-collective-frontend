@@ -12,7 +12,7 @@ import UploadArtwork from './pages/UploadArtwork';
 import UploadEvent from './pages/UploadEvent';
 import EditArtwork from './pages/EditArtwork';
 import EditEvent from './pages/EditEvent';
-
+import ArtistProfile from './pages/ArtistProfile';
 
 function App() {
   return (
@@ -30,6 +30,7 @@ function App() {
           <Route path="/upload-event" element={<UploadEvent />} />
           <Route path="/edit-artwork/:id" element={<EditArtwork />} />
           <Route path="/edit-event/:id" element={<EditEvent />} />
+          <Route path="/artist/:userId" element={<ArtistProfile />} />
         </Routes>
       </Router>
     </AuthProvider>
