@@ -14,9 +14,12 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(authenticated);
 
             if (authenticated) {
-                setUser({
-                    is_artist: authService.getIsArtist(),
-                });
+                const userData = authService.getUserFromToken();
+                if (userData) {
+                    setUser(userData);
+                } else {
+                    setIsAuthenticated(false);
+                }
             }
             setIsLoading(false);
         };
@@ -27,7 +30,9 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await authService.login(credentials);
             setIsAuthenticated(true);
-            setUser(data);
+            const userData = authService.getUserFromToken();
+            setUser(userData);
+            
             return data;
         } catch (error) {
             throw error;

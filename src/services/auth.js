@@ -1,4 +1,5 @@
 import api from './axiosConfig';
+import { jwtDecode } from 'jwt-decode';
 
 const authService = {
     register: async (userData) => {
@@ -10,16 +11,12 @@ const authService = {
         const response = await api.post('/auth/login/', credentials);
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('is_artist', response.data.is_artist);
-            localStorage.setItem('user_id', response.data.user_id);
         }
         return response.data;
     },
 
     logout: () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('is_artist');
-        localStorage.removeItem('user_id');
+        localStorage.removeItem('token');        
     },
 
     isAuthenticated: () => {
@@ -30,13 +27,32 @@ const authService = {
         return localStorage.getItem('token');
     },
 
-    getIsArtist: () => {
-        return localStorage.getItem('is_artist') === 'true';
-    },
+    getUserFromToken: () => {
+        const token = localStorage.getItem('token');
+        if (!token) return null;
 
-    getUserId: () => {
-        return localStorage.getItem('user_id');
-    }
+        try {
+            const decoded = jwtDecode(token);
+            const currentTime = Date.now() / 1000;
+            if (decoded.exp < currentTime) {
+                localStorage.removeItem('token');
+                return null;
+            }
+
+            return decoded;
+        } catch (error) {
+            console.error('Token decode error:', error);
+            return null;
+        }
+    },
 };
+    // getIsArtist: () => {
+    //     return localStorage.getItem('is_artist') === 'true';
+    // },
+
+    // getUserId: () => {
+    //     return localStorage.getItem('user_id');
+    // }
+// };
 
 export default authService;
