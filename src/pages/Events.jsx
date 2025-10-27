@@ -1,10 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import eventsService from '../services/events';
+import { AuthContext } from '../contexts/UserContext';
+import { Link } from 'react-router-dom';
 
 function Events() {
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
+
+    const { user } = useContext(AuthContext);
 
     const API_BASE = import.meta.env.VITE_API_BASE_URL.replace('/api', '');
 
@@ -42,6 +46,18 @@ function Events() {
         return `${displayHour}:${minutes} ${ampm}`;
     };
 
+    const handleDelete = async (eventId) => {
+        if (window.confirm('Are you sure you want to delete this event?')) {
+            try {
+                await eventsService.delete(eventId);
+                setEvents(events.filter(event => event.id !== eventId));
+            } catch (err) {
+                console.error('Delete error:', err);
+                alert('Failed to delete event');
+            }
+        }
+    };
+
     if (isLoading) {
         return ( 
         <div className='container-custom py-8'>
@@ -69,52 +85,69 @@ function Events() {
     return (
         <div className='min-h-screen bg-neutral-50 py-8'>
             <div className='container-custom'>
-        <h1 className='text-4xl font-bold text-neutral-900 mb-2'>Events</h1>
-        <p className='text-neutral-600 mb-8'>Discover upcoming events, pop-ups and exhibitions </p>
+                <h1 className='text-4xl font-bold text-neutral-900 mb-2'>Events</h1>
+                <p className='text-neutral-600 mb-8'>Discover upcoming events, pop-ups and exhibitions </p>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            {events.map((event) => (
-                <div key={event.id} className='card group'>
-                    {event.artist?.user?.username && (
-                        <div className='px-6 pt-4 pb-2'>
-                            <p className='text-sm text-gray-500'>
-                                Post by: {event.artist.user.username}
-                            </p>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                    {events.map((event) => (
+                        <div key={event.id} className='card group'>
+                            {event.artist?.user?.username && (
+                                <div className='px-6 pt-4 pb-2'>
+                                    <p className='text-sm text-gray-500'>
+                                        Post by: {event.artist.user.username}
+                                    </p>
+                                </div>
+                            )}
+
+                            <div className='h-64 overflow-hidden bg-neutral-200'>
+                                <img
+                                    src={`${API_BASE}${event.image}`}
+                                    alt={event.title}
+                                    className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                />
+                            </div>
+                                                    
+                            <div className='p-6'>
+                                <h3 className='text-2xl font-bold text-neutral-900 mb-3'>
+                                    {event.title}
+                                </h3>
+                            <div className='space-y-2 mb-4'>
+                                <p className='text-nutral-700 flex items-center'>
+                                <span className='font-semibold mr-2'>Date:</span>
+                                    {formatDate(event.date)}
+                                </p>
+                                <p className='text-nutral-700 flex items-center'>
+                                <span className='font-semibold mr-2'>Time:</span>
+                                    {formatTime(event.time)}
+                                </p>
+                                <p className='text-nutral-700 flex items-center'>
+                                <span className='font-semibold mr-2'>Location:</span>
+                                    {formatTime(event.location)}
+                                </p>
+                            </div>
+
+                            {event.description && (
+                                <p className='text-neutral-600'>{event.description}</p>
+                            )}
+
+                            {user?.is_artist && event.artist?.user?.id === user?.id && (
+                                <div className='mt-4 flex space-x-2'>
+                                    <Link
+                                        to={`/edit-event/${event.id}`}
+                                        className='flex-1 text-center bg-blue-500 hover:bg-blue-600 text-white text-sm py-2 px-3 rounded transition-colors'
+                                    >
+                                        Edit
+                                    </Link>
+                                    <button
+                                        onClick={() => handleDelete(event.id)}
+                                        className='flex-1 text-center bg-red-500 hover:bg-red-600 text-white text-sm py-2 px-3 rounded transition-colors' 
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                    )}
-
-                    <div className='h-64 overflow-hidden bg-neutral-200'>
-                        <img
-                            src={`${API_BASE}${event.image}`}
-                            alt={event.title}
-                            className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                        />
                     </div>
-                                            
-                    <div className='p-6'>
-                        <h3 className='text-2xl font-bold text-neutral-900 mb-3'>
-                            {event.title}
-                        </h3>
-                    <div className='space-y-2 mb-4'>
-                        <p className='text-nutral-700 flex items-center'>
-                        <span className='font-semibold mr-2'>Date:</span>
-                            {formatDate(event.date)}
-                        </p>
-                        <p className='text-nutral-700 flex items-center'>
-                        <span className='font-semibold mr-2'>Time:</span>
-                            {formatTime(event.time)}
-                        </p>
-                        <p className='text-nutral-700 flex items-center'>
-                        <span className='font-semibold mr-2'>Location:</span>
-                            {formatTime(event.location)}
-                        </p>
-                    </div>
-
-                    {event.description && (
-                         <p className='text-neutral-600'>{event.description}</p>
-                    )}
-                 </div>
-                </div>
                 ))}
             </div>
         </div>
