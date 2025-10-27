@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import artistsService from '../services/artists';
+import ProfileImageUpload from '../components/ProfileImageUpload';
 
 function ArtistProfile() {
     const { userId } = useParams();
@@ -12,31 +13,35 @@ function ArtistProfile() {
 
     const API_BASE = import.meta.env.VITE_API_BASE_URL.replace('/api', '');
 
+    const fetchArtistData = async () => {
+        setIsLoading(true);
+        setError('');
+
+        try {
+            const [artistData, artworksData, eventsData] = await Promise.all([
+                artistsService.getById(userId),
+                artistsService.getArtworks(userId),
+                artistsService.getEvents(userId)
+            ]);
+
+            setArtist(artistData);
+            setArtworks(artworksData);
+            setEvents(eventsData);
+        } catch (err) {
+            console.error('Error fetching artist data:', err);
+            setError('Failed to load artist profile. Please try again later.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchArtistData = async () => {
-            setIsLoading(true);
-            setError('');
-
-            try {
-                const [artistData, artworksData, eventsData] = await Promise.all([
-                    artistsService.getById(userId),
-                    artistsService.getArtworks(userId),
-                    artistsService.getEvents(userId)
-                ]);
-
-                setArtist(artistData);
-                setArtworks(artworksData);
-                setEvents(eventsData);
-            } catch (err) {
-                console.error('Error fetching artist data:', err);
-                setError('Failed to load artist profile. Please try again later.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
         fetchArtistData();
     }, [userId]);
+
+    const handleUploadSuccess = (updatedArtist) => {
+            setArtist(updatedArtist);
+    };
 
     if (isLoading) {
         return (
@@ -81,6 +86,11 @@ function ArtistProfile() {
                                     </span>
                                 </div>
                             )}
+
+                            <ProfileImageUpload
+                                artist={artist}
+                                onUploadSuccess={handleUploadSuccess}
+                            />
                         </div>
 
                         <div className='flex-1'>
@@ -110,6 +120,7 @@ function ArtistProfile() {
                                         className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                                     />
                                 </div>
+                                
                                 <div className='p-4'>
                                     <h3 className='text-lg font-bold text-gray-900 mb-1'>
                                         {artwork.title}
@@ -147,6 +158,7 @@ function ArtistProfile() {
                                             className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                                         />
                                     </div>
+                                    
                                     <div className='p-6'>
                                         <h3 className='text-xl font-bold text-gray-900 mb-2'>
                                             {event.title}
