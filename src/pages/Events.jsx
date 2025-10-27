@@ -39,11 +39,24 @@ function Events() {
     };
 
     const formatTime = (timeString) => {
-        const [hours, minutes] = timeString.split(':');
-        const hour = parseInt(hours);
-        const ampm = hour >= 12 ? 'PM' : 'AM';
-        const displayHour = hour % 12 || 12;
-        return `${displayHour}:${minutes} ${ampm}`;
+        if (!timeString) return 'Time not set';
+
+        try{
+            const timeParts = timeString.split(':');
+            const hours = parseInt(timeParts[0]);
+            const minutes = timeParts[1] || '00';
+
+            if (isNaN(hours) || hours < 0 || hours > 23) {
+                return 'Invalid time';
+            }
+            
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            return `${displayHours}:${minutes} ${ampm}`;
+        } catch (error) {
+            console.error('Time format error:', timeString, error);
+            return 'Time format error';
+        }
     };
 
     const handleDelete = async (eventId) => {
@@ -112,17 +125,17 @@ function Events() {
                                     {event.title}
                                 </h3>
                             <div className='space-y-2 mb-4'>
-                                <p className='text-nutral-700 flex items-center'>
+                                <p className='text-neutral-700 flex items-center'>
                                 <span className='font-semibold mr-2'>Date:</span>
                                     {formatDate(event.date)}
                                 </p>
-                                <p className='text-nutral-700 flex items-center'>
+                                <p className='text-neutral-700 flex items-center'>
                                 <span className='font-semibold mr-2'>Time:</span>
                                     {formatTime(event.time)}
                                 </p>
-                                <p className='text-nutral-700 flex items-center'>
+                                <p className='text-neutral-700 flex items-center'>
                                 <span className='font-semibold mr-2'>Location:</span>
-                                    {formatTime(event.location)}
+                                    {event.location}
                                 </p>
                             </div>
 
