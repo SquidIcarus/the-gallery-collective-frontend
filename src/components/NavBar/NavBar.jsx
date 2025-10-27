@@ -71,9 +71,17 @@ function NavBar() {
                                 </Link>
                             </>
                         ) : (
-                            <button onClick={handleLogout} className='btn-secondary'>
-                                Logout
-                            </button>
+                            <>
+                                <Link
+                                    to={user?.is_artist ? `/artist/${user.id}` : `/user/${user.id}`}
+                                    className='text-blue-400 hover:text-blue-300 transition-colors'
+                                >
+                                    {user?.username}
+                                </Link>
+                                <button onClick={handleLogout} className='btn-secondary'>
+                                    Logout
+                                </button>
+                            </>
                         )}
                     </div>
 
