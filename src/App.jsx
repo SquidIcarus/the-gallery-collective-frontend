@@ -10,6 +10,7 @@ import Artworks from './pages/Artworks';
 import Events from './pages/Events';
 import UploadArtwork from './pages/UploadArtwork';
 import UploadEvent from './pages/UploadEvent';
+import EditArtwork from './pages/EditArtwork';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/upload-artwork" element={<UploadArtwork />} />
           <Route path="/upload-event" element={<UploadEvent />} />
+          <Route path="/edit-artwork/:id" element={<EditArtwork />} />
         </Routes>
       </Router>
     </AuthProvider>

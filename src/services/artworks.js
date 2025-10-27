@@ -20,6 +20,15 @@ const artworksService = {
         return response.data;
     },
 
+    update: async (id, formData) => {
+        const response = await api.put(`/artworks/${id}/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return response.data;
+    },
+
     delete: async (id) => {
         const response = await api.delete(`/artworks/${id}/`);
         return response.data;
