@@ -11,6 +11,7 @@ const authService = {
         if (response.data.token) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('is_artist', response.data.is_artist);
+            localStorage.setItem('user_id', response.data.user_id);
         }
         return response.data;
     },
@@ -18,6 +19,7 @@ const authService = {
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('is_artist');
+        localStorage.removeItem('user_id');
     },
 
     isAuthenticated: () => {
@@ -31,6 +33,10 @@ const authService = {
     getIsArtist: () => {
         return localStorage.getItem('is_artist') === 'true';
     },
+
+    getUserId: () => {
+        return localStorage.getItem('user_id');
+    }
 };
 
 export default authService;

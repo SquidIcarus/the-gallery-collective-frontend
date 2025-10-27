@@ -19,6 +19,11 @@ const artworksService = {
         });
         return response.data;
     },
+
+    delete: async (id) => {
+        const response = await api.delete(`/artworks/${id}/`);
+        return response.data;
+    }
 };
 
 export default artworksService;
