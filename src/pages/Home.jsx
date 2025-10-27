@@ -41,7 +41,7 @@ function Home() {
 
      return (
         <div className='min-h-screen'>
-            <div className='text-white py-20'>
+            <div className='text-white py-8'>
                 <div className='container-custom text-center'>
                     <p className='text-2xl text-gray-300 mb-8'>
                         Discover amazing artworks and events from talented artists
@@ -50,43 +50,7 @@ function Home() {
                 </div>
             </div>
 
-            <div className='container-custom py-16'>
-                <div className='flex justify-between items-center mb-8'>
-                    <h2 className='text-4xl font-bold text-white'>Recent Artworks</h2>
-                    <Link to='/artworks' className='text-blue-400 hover:text-blue-300 font-semibold'>
-                        View All
-                    </Link>
-                </div>
-
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-                    {recentArtworks.map((artwork) => (
-                        <div key={artwork.id} className='card group'>
-                            <div className='aspect-square overflow-hidden bg-gray-200'>
-                                <img
-                                    src={`${API_BASE}${artwork.image}`}
-                                    alt={artwork.title}
-                                    className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                />
-                            </div>
-                            <div className='p-4'>
-                                <h3 className='text-lg font-bold text-gray-900 mb-1'>
-                                    {artwork.title}
-                                </h3>
-                                {artwork.artist?.user?.username && (
-                                    <Link 
-                                        to={`/artist/${artwork.artist.user.id}`}
-                                        className="text-sm text-blue-500 hover:text-blue-600"
-                                    >
-                                        by {artwork.artist.user.username}
-                                    </Link>
-                                )}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className='py-16'>
+            <div className='py-8'>
                 <div className='container-custom'>
                     <div className='flex justify-between items-center mb-8'>
                         <h2 className='text-4xl font-bold text-white'>Upcoming Events</h2>
@@ -127,6 +91,42 @@ function Home() {
                             </div>
                         ))}
                     </div>
+                </div>
+            </div>
+
+            <div className='container-custom py-20'>
+                <div className='flex justify-between items-center mb-8'>
+                    <h2 className='text-4xl font-bold text-white'>Recent Artworks</h2>
+                    <Link to='/artworks' className='text-blue-400 hover:text-blue-300 font-semibold'>
+                        View All
+                    </Link>
+                </div>
+
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+                    {recentArtworks.map((artwork) => (
+                        <div key={artwork.id} className='card group'>
+                            <div className='aspect-square overflow-hidden bg-gray-200'>
+                                <img
+                                    src={`${API_BASE}${artwork.image}`}
+                                    alt={artwork.title}
+                                    className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                />
+                            </div>
+                            <div className='p-4'>
+                                <h3 className='text-lg font-bold text-gray-900 mb-1'>
+                                    {artwork.title}
+                                </h3>
+                                {artwork.artist?.user?.username && (
+                                    <Link 
+                                        to={`/artist/${artwork.artist.user.id}`}
+                                        className="text-sm text-blue-500 hover:text-blue-600"
+                                    >
+                                        by {artwork.artist.user.username}
+                                    </Link>
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
