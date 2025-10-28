@@ -44,7 +44,7 @@ function Home() {
             <div className='text-white py-8'>
                 <div className='container-custom text-center'>
                     <p className='text-2xl text-gray-300 mb-8'>
-                        Discover amazing artworks and events from talented artists
+                        Discover amazing artworks and events from favorite artists.
                     </p>
                                             
                 </div>
