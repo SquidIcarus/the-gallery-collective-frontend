@@ -77,9 +77,20 @@ function Register() {
                 </div>
         
                 <div className='bg-white rounded-lg shadow-md p-8'>
+                     <form onSubmit={handleSubmit} className='space-y-6'>
+                        {error && (
+                            <div className='bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg'>
+                                {error}
+                            </div>
+                        )}
+                        {success && (
+                            <div className='bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg'>
+                                {success}
+                            </div>
+                        )}
                   
                         <div>
-                            <label htmlFor='email' className='for-label'>
+                            <label htmlFor='email' className='form-label'>
                                 Email
                         </label>
                         <input
@@ -96,7 +107,7 @@ function Register() {
                     <div>
                         <label htmlFor='username' className='form-label'>
                             Username
-                    </label>
+                        </label>
                         <input
                             type='text'
                             id='username'
@@ -122,6 +133,7 @@ function Register() {
                             required
                         />  
                     </div>
+                    
                     <div>
                         <label htmlFor='last_name' className='form-label'>
                             Last Name
@@ -137,79 +149,68 @@ function Register() {
                         />  
                     </div>
                 
-                <div>
-                    <label htmlFor='password' className='form-label'>
-                        Password
-                    </label>
-                    <input
-                        type='password'
-                        id='password'
-                        name='password'
-                        value={formData.password}
-                        onChange={handleChange}
-                        className='form-input'
-                        required
-                    />  
-                </div>
-
-                <div>
-                    <label htmlFor='password_confirmation' className='form-label'>
-                        Confirm Password
-                    </label>
-                    <input
-                        type='password'
-                        id='password_confirmation'
-                        name='password_confirmation'
-                        value={formData.password_confirmation}
-                        onChange={handleChange}
-                        className='form-input'
-                        required
-                    />  
-                </div>
-
-                <div>
-                    <label className='flex items-center'>
+                    <div>
+                        <label htmlFor='password' className='form-label'>
+                            Password
+                        </label>
                         <input
-                            type='checkbox'
-                            name='is_artist'
-                            checked={formData.is_artist}
+                            type='password'
+                            id='password'
+                            name='password'
+                            value={formData.password}
                             onChange={handleChange}
-                            className='mr-2'
-                        />
-                        Register as an artist
-                    </label>
-                </div>
+                            className='form-input'
+                            required
+                        />  
+                    </div>
 
-                  <form onSubmit={handleSubmit} className='space-y-6'>
-                        {error && (
-                            <div className='bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg'>
-                                {error}
-                            </div>
-                        )}
-                        {success && (
-                            <div className='bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg'>
-                            {success}
-                            </div>
-                        )}
-                        
-                    <button type='submit' 
-                    disabled={isLoading}
-                    className='w-full btn-primary'
-                >
-                    {isLoading ? 'Registering...' : 'Register'}
-                </button>
-            </form>
+                    <div>
+                        <label htmlFor='password_confirmation' className='form-label'>
+                            Confirm Password
+                        </label>
+                        <input
+                            type='password'
+                            id='password_confirmation'
+                            name='password_confirmation'
+                            value={formData.password_confirmation}
+                            onChange={handleChange}
+                            className='form-input'
+                            required
+                        />  
+                    </div>
 
-            <p className='mt-6 text-center text-neutral-600'>
-                Already have an account?{' '}
-                <Link to="/login" className='text-primary-500 hover:text-primary-600 front-semibold'>
-                    Login here
-                </Link>
-            </p>    
+                    <div>
+                        <label className='flex items-center'>
+                            <input
+                                type='checkbox'
+                                name='is_artist'
+                                checked={formData.is_artist}
+                                onChange={handleChange}
+                                className='mr-2'
+                            />
+                            <span className='text-gray-700'>Register as an artist</span>
+                        </label>
+                    </div>
+                
+                    <button 
+                        type='submit' 
+                        disabled={isLoading}
+                        className='w-full btn-primary'
+                    >
+                        {isLoading ? 'Registering...' : 'Register'}
+                    </button>
+                </form>
+
+                <p className='mt-6 text-center text-neutral-600'>
+                    Already have an account?{' '}
+                    <Link to="/login" className='text-primary-500 hover:text-primary-600 front-semibold'>
+                        Login here
+                    </Link>
+                </p>    
+            </div>
         </div>
     </div>
-</div>
-);    
+    );    
 
 }
 

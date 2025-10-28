@@ -79,7 +79,7 @@ function Login() {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className='form-label'
+                        className='form-input'
                         required
                     />
                 </div>
