@@ -12,6 +12,7 @@ body {
 input, textarea, select {
   font-family: system-ui, -apple-system, sans-serif;
   text-transform: none;
+  color: black
 }
 
 @layer components {
